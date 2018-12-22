@@ -1,7 +1,13 @@
-const fs = require('fs');
-const text2png = require('text2png');
+# coding: utf-8
 
-var text = `
+import sys
+from PIL import Image, ImageFont, ImageDraw
+
+# reload(sys)
+# sys.setdefaultencoding("utf-8")
+# sys.getdefaultencoding()
+
+aa = '''\
 　 　 　 　 　 ／////////////////////////　------＼/////////ヽ
 　　　　　　 ////:///////////////＞　　"´　　　　　　　 ∨////////∧
 　　　　　 .///////////////＞ ´　　　　　　　　　　　 　 　 ∨////////∧
@@ -28,13 +34,19 @@ var text = `
 　　　　 .ﾉ//＞≦ニニニニニ＼　 }/　　　　　　　 　 ｀ ´ ＼＼　　　　/ニニニニニニニニ
 　　　 .//／ニニニニニニニニﾆ＼　　　　　　　　　　　　　 ｀´　　　　{ﾆﾆニニニニニニニ
 　　　 .イニニニニニニニニニニニヽ　　　　　　　　　　　　　　　　　 /ニニニニニニニﾆﾆ
-`;
+'''
 
-var buf = text2png(text, {
-  font: '16px aahub',
-  localFontPath: fs.realpathSync("../fonts/aahub.ttf"),
-  textColor: "#333333",
-  backgroundColor: "#ffffff",
-  localFontName: 'aahub',
-});
-fs.writeFileSync("./out.png", buf);
+
+lines = aa.split("\n")
+
+font = ImageFont.truetype("../fonts/Saitamaar.ttf", 17)
+w,h = max(font.getsize(line) for line in lines)
+
+imag = Image.new("RGB", (w, h*len(lines)), "#ffffff")
+draw = ImageDraw.Draw(imag)
+
+for i,line in enumerate(lines):
+    draw.text((0, i*h), line, font=font, fill="#000000")
+
+# 表示
+imag.show()

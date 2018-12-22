@@ -55,7 +55,7 @@ func main() {
 func ConvertTextToImage(lines []string) ([]byte, error) {
 	// 対象アスキーアートの縦横を図る
 	measure := gg.NewContext(S, S)
-	if err := measure.LoadFontFace("./monapo.ttf", FONT_SIZE); err != nil {
+	if err := measure.LoadFontFace("../fonts/monapo.ttf", FONT_SIZE); err != nil {
 		return nil, err
 	}
 	maxWidth := 0.0
